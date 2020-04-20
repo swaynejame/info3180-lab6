@@ -26,13 +26,12 @@ Vue.component('app-header', {
     }
 });
 
-
 Vue.component('news-list', {
   template:`
   <div class="news">
     <h2>News</h2>
     <ul class="news__list">
-    <li v-for="article in articles"class="news__item"><img :src="article.urlToImage"/>{{ article.title }}, {{ article.description }}</li>
+    <li v-for="article in articles"class="news__item"><h4>{{ article.title }}</h4><img :src="article.urlToImage"/><p>{{ article.description }}</p></li>
     </ul>
   </div>
   `,

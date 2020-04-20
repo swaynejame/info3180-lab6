@@ -5,3 +5,28 @@ body {
 footer  {
     padding-top: 20px;
 }
+
+.news__item,ul{
+    list-style-type: none;
+}
+
+.news__list{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto;
+}
+
+.news__item, img{
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 280px;
+    max-height: 280px;
+}
+
+.news__item{
+    border: 1px solid #888;
+    margin: 10%;
+}
