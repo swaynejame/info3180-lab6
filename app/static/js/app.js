@@ -11,10 +11,10 @@ Vue.component('app-header', {
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <router-link to="/" class="nav-link">Home</router-link>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">News</a>
+                  <li class="nav-item active">
+                    <router-link to="/news" class="nav-link">News</router-link>
                   </li>
                 </ul>
               </div>
@@ -26,7 +26,7 @@ Vue.component('app-header', {
     }
 });
 
-Vue.component('news-list', {
+const NewsList = Vue.component('news-list', {
   template:`
   <body>
     <div class="form-inline d-flex justify-content-center">
@@ -49,7 +49,7 @@ Vue.component('news-list', {
 
     let self = this;
 
-    fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=ef8061d126bd40f7806450caa1a47108').then(function(response){
+    fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=').then(function(response){
     return response.json();
     })
     .then(function(data) {
@@ -71,7 +71,7 @@ Vue.component('news-list', {
       searchNews: function(){
       let self = this;
 
-        fetch('https://newsapi.org/v2/everything?q='+self.searchTerm + '&language=en&apiKey=ef8061d126bd40f7806450caa1a47108').then(function(response) {
+        fetch('https://newsapi.org/v2/everything?q='+self.searchTerm + '&language=en&apiKey=').then(function(response) {
           return response.json();
         })
         .then(function(data) {
@@ -82,6 +82,30 @@ Vue.component('news-list', {
     }
 
 });
+
+const Home = Vue.component('home', {
+  template: `
+    <div class="home">
+      <img src="/static/images/logo.png" alt="VueJS Logo">
+      <h1>{{ welcome }}</h1>
+    </div>
+  `,
+  data: function() {
+    return {
+      welcome: 'Hello World! Welcome to VueJS'
+    }
+  }
+
+});
+
+const router = new VueRouter({
+  mode: 'history',
+  routes: [
+    { path: '/', component: Home },
+    { path: '/news', component: NewsList }
+  ]
+
+  });
 
 
 Vue.component('app-footer', {
@@ -99,11 +123,8 @@ Vue.component('app-footer', {
     }
 })
 
-let app = new Vue({
-    el: '#app',
-    data: {
-        welcome: 'Hello World! Welcome to VueJS'
-    }
-});
-
+const app = new Vue({
+el: '#app',
+router
+})
 
